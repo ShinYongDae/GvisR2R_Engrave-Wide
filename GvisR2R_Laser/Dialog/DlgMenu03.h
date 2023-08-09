@@ -49,8 +49,6 @@ class CDlgMenu03 : public CDialog
 	BOOL m_bTIM_MENU03_DISP;
 	BOOL m_bTIM_CHK_DONE_MK;
 	BOOL m_bTIM_CHK_DONE_AOI;
-// 	BOOL m_bTIM_CHK_SOL_MK;
-// 	BOOL m_bTIM_CHK_SOL_AOI;
 	BOOL m_bTIM_CHK_DONE_MKAOI;
 	BOOL m_bTIM_CHK_DONE_BUF_HOME;
 	BOOL m_bTIM_CHK_DONE_BUF_INIT;
@@ -87,8 +85,6 @@ class CDlgMenu03 : public CDialog
 	void DispEngrave();
 	void DispUncoiler();
 
-// 	void MyBtnDown(int nCtrlID);
-// 	void MyBtnUp(int nCtrlID);
 	void ChkDoneMkAoi();
 	void DoReady();
 	BOOL DoReset();
@@ -136,7 +132,6 @@ public:
 	void ChkBufHomeDone();
 	void ChkBufInitDone();
 	void ChkReadyDone();
-	//void DispCwCcwLamp(BOOL bRun);
 	void DoManual();
 	void DoAuto();
 	void InitRelation();
@@ -187,7 +182,6 @@ public:
 	void SwMkTblVac(BOOL bOn);			// not used
 	void SwMkLsrPt(BOOL bOn);			// not used
 	void SwMkFdClp(BOOL bOn);			// not used
-// 	void SwMkDnSol(BOOL bOn);			// not used
 
 	void SwBufRolSol(BOOL bOn);
 
@@ -240,7 +234,6 @@ public:
 	void SwMkTblVac();		// not used
 	void SwMkLsrPt();		// not used
 	void SwMkFdClp();
-// 	void SwMkDnSol();
 	void SwBufRolSol();
 	void SwAoiRelation();
 	void SwAoiDustBlw();

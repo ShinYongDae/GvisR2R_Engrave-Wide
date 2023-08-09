@@ -2163,3 +2163,8 @@ BOOL CCamMaster::IsMstSpec(CString sSpecFolderPath, CString  sModel, CString sLa
 
 	return TRUE;
 }
+
+int CCamMaster::GetStripNum()
+{
+	return FrameRgnNum;
+}

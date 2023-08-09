@@ -339,9 +339,15 @@ BOOL CPcsRgn::GetMkMatrix(int nPcsId, int &nC, int &nR)
 
 BOOL CPcsRgn::GetMkMatrix(int nPcsId, int &nStrip, int &nC, int &nR) // nStrip:0~3 , nC:0~ , nR:0~
 {
+	int nMaxStrip;
+#ifdef USE_CAM_MASTER
+	nMaxStrip = pDoc->m_Master[0].GetStripNum(); // ÃÑ ½ºÆ®¸³ÀÇ °¹¼ö
+#else
+	nMaxStrip = MAX_STRIP;
+#endif
 	int nNodeX = nCol;
 	int nNodeY = nRow;
-	int nStPcsY = nNodeY / 4;
+	int nStPcsY = nNodeY / nMaxStrip;
 	int nRow;// , nCol;
 
 	if(-1 < nPcsId && nPcsId < (nNodeX*nNodeY))
@@ -364,19 +370,6 @@ BOOL CPcsRgn::GetMkMatrix(int nPcsId, int &nStrip, int &nC, int &nR) // nStrip:0
 
 	return TRUE;
 }
-
-// void CPcsRgn::GetMkPnt(int nC, int nR, int &nPcsId, CfPoint &ptPnt)
-// {
-// 	int nNodeY = nRow;
-// 
-// 	if(nC%2)	// È¦¼ö.
-// 		nPcsId = nNodeY * (nC+1) - (nR+1);
-// 	else		// Â¦¼ö.
-// 		nPcsId = nNodeY * nC + nR;
-// 
-// 	ptPnt.x = pMkPnt[nPcsId].x;
-// 	ptPnt.y = pMkPnt[nPcsId].y;
-// }
 
 void CPcsRgn::SetPinPos(int nCam, CfPoint ptPnt)
 {

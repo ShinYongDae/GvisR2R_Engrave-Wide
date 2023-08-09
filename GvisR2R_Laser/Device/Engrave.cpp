@@ -2161,11 +2161,25 @@ void CEngrave::GetStripRatio(SOCKET_DATA SockData)
 				pDoc->m_dStripRatio[0][3] = (double)SockData.fData1;
 			}
 			break;
-		case _ItemInx::_AllLnGoodRtoUp:
+		case _ItemInx::_5LnGoodRtoUp:
 			if (pDoc->m_dStripRatio[0][4] != SockData.fData1)
 			{
 				m_bGetInfo = TRUE;
 				pDoc->m_dStripRatio[0][4] = (double)SockData.fData1;
+			}
+			break;
+		case _ItemInx::_6LnGoodRtoUp:
+			if (pDoc->m_dStripRatio[0][5] != SockData.fData1)
+			{
+				m_bGetInfo = TRUE;
+				pDoc->m_dStripRatio[0][5] = (double)SockData.fData1;
+			}
+			break;
+		case _ItemInx::_AllLnGoodRtoUp:
+			if (pDoc->m_dStripRatio[0][6] != SockData.fData1)
+			{
+				m_bGetInfo = TRUE;
+				pDoc->m_dStripRatio[0][6] = (double)SockData.fData1;
 			}
 			break;
 		case _ItemInx::_1LnGoodRtoDn:
@@ -2196,11 +2210,25 @@ void CEngrave::GetStripRatio(SOCKET_DATA SockData)
 				pDoc->m_dStripRatio[1][3] = (double)SockData.fData1;
 			}
 			break;
-		case _ItemInx::_AllLnGoodRtoDn:
+		case _ItemInx::_5LnGoodRtoDn:
 			if (pDoc->m_dStripRatio[1][4] != SockData.fData1)
 			{
 				m_bGetInfo = TRUE;
 				pDoc->m_dStripRatio[1][4] = (double)SockData.fData1;
+			}
+			break;
+		case _ItemInx::_6LnGoodRtoDn:
+			if (pDoc->m_dStripRatio[1][5] != SockData.fData1)
+			{
+				m_bGetInfo = TRUE;
+				pDoc->m_dStripRatio[1][5] = (double)SockData.fData1;
+			}
+			break;
+		case _ItemInx::_AllLnGoodRtoDn:
+			if (pDoc->m_dStripRatio[1][6] != SockData.fData1)
+			{
+				m_bGetInfo = TRUE;
+				pDoc->m_dStripRatio[1][6] = (double)SockData.fData1;
 			}
 			break;
 		case _ItemInx::_1LnGoodRtoTot:
@@ -2231,11 +2259,25 @@ void CEngrave::GetStripRatio(SOCKET_DATA SockData)
 				pDoc->m_dStripRatio[2][3] = (double)SockData.fData1;
 			}
 			break;
-		case _ItemInx::_AllLnGoodRtoTot:
+		case _ItemInx::_5LnGoodRtoTot:
 			if (pDoc->m_dStripRatio[2][4] != SockData.fData1)
 			{
 				m_bGetInfo = TRUE;
 				pDoc->m_dStripRatio[2][4] = (double)SockData.fData1;
+			}
+			break;
+		case _ItemInx::_6LnGoodRtoTot:
+			if (pDoc->m_dStripRatio[2][5] != SockData.fData1)
+			{
+				m_bGetInfo = TRUE;
+				pDoc->m_dStripRatio[2][5] = (double)SockData.fData1;
+			}
+			break;
+		case _ItemInx::_AllLnGoodRtoTot:
+			if (pDoc->m_dStripRatio[2][6] != SockData.fData1)
+			{
+				m_bGetInfo = TRUE;
+				pDoc->m_dStripRatio[2][6] = (double)SockData.fData1;
 			}
 			break;
 		default:
@@ -3750,24 +3792,31 @@ void CEngrave::SetEdTime()
 
 void CEngrave::SetStripRatio()
 {
+	int nMaxStrip;
+#ifdef USE_CAM_MASTER
+	nMaxStrip = pDoc->m_Master[0].GetStripNum(); // 총 스트립의 갯수
+#else
+	nMaxStrip = MAX_STRIP;
+#endif
+
 	SOCKET_DATA SocketData;
 	SocketData.nCmdCode = _SetData;
 	CString str;
-	int nGood = 0, nBad = 0, nTot = 0, nStTot = 0, nSum = 0, nVal[2][4];
+	int nGood = 0, nBad = 0, nTot = 0, nStTot = 0, nSum = 0, nVal[2][MAX_STRIP];
 	int nMer[MAX_STRIP];
 	double dRatio = 0.0;
 	BOOL bDualTest = pDoc->WorkingInfo.LastJob.bDualTest;
 
 	for (int i = 0; i < 2; i++)
 	{
-		for (int k = 0; k < 4; k++)
+		for (int k = 0; k < MAX_STRIP; k++)
 			nVal[i][k] = 0;
 	}
 
 	// < 스트립 별 수율 >
 	pDoc->m_pReelMapUp->GetPcsNum(nGood, nBad);
 	nTot = nGood + nBad;
-	nStTot = nTot / 4;
+	nStTot = nTot / nMaxStrip;
 
 	// 상면
 	nSum = 0;
@@ -3814,6 +3863,31 @@ void CEngrave::SetStripRatio()
 	SocketData.nMsgID = _stItemInx::_4LnGoodRtoUp;
 	SocketData.fData1 = dRatio;
 	SendCommand(SocketData);
+
+	if (nMaxStrip == 6)
+	{
+		nVal[0][4] = pDoc->m_pReelMapUp->GetDefStrip(4);
+		nSum += nVal[0][4];
+		if (nTot > 0)
+			dRatio = ((double)(nStTot - nVal[0][4]) / (double)nStTot) * 100.0;
+		else
+			dRatio = 0.0;
+
+		SocketData.nMsgID = _stItemInx::_5LnGoodRtoUp;
+		SocketData.fData1 = dRatio;
+		SendCommand(SocketData);
+
+		nVal[0][5] = pDoc->m_pReelMapUp->GetDefStrip(5);
+		nSum += nVal[0][5];
+		if (nTot > 0)
+			dRatio = ((double)(nStTot - nVal[0][5]) / (double)nStTot) * 100.0;
+		else
+			dRatio = 0.0;
+
+		SocketData.nMsgID = _stItemInx::_6LnGoodRtoUp;
+		SocketData.fData1 = dRatio;
+		SendCommand(SocketData);
+	}
 
 	if (nTot > 0)
 		dRatio = ((double)(nTot - nSum) / (double)nTot) * 100.0;
@@ -3873,6 +3947,31 @@ void CEngrave::SetStripRatio()
 		SocketData.fData1 = dRatio;
 		SendCommand(SocketData);
 
+		if (nMaxStrip == 6)
+		{
+			nVal[1][4] = pDoc->m_pReelMapDn->GetDefStrip(4);
+			nSum += nVal[1][4];
+			if (nTot > 0)
+				dRatio = ((double)(nStTot - nVal[1][4]) / (double)nStTot) * 100.0;
+			else
+				dRatio = 0.0;
+
+			SocketData.nMsgID = _stItemInx::_5LnGoodRtoDn;
+			SocketData.fData1 = dRatio;
+			SendCommand(SocketData);
+
+			nVal[1][5] = pDoc->m_pReelMapDn->GetDefStrip(5);
+			nSum += nVal[1][5];
+			if (nTot > 0)
+				dRatio = ((double)(nStTot - nVal[1][5]) / (double)nStTot) * 100.0;
+			else
+				dRatio = 0.0;
+
+			SocketData.nMsgID = _stItemInx::_6LnGoodRtoDn;
+			SocketData.fData1 = dRatio;
+			SendCommand(SocketData);
+		}
+
 		if (nTot > 0)
 			dRatio = ((double)(nTot - nSum) / (double)nTot) * 100.0;
 		else
@@ -3927,6 +4026,31 @@ void CEngrave::SetStripRatio()
 		SocketData.nMsgID = _stItemInx::_4LnGoodRtoTot;
 		SocketData.fData1 = dRatio;
 		SendCommand(SocketData);
+
+		if (nMaxStrip == 6)
+		{
+			nMer[4] = pDoc->m_pReelMapAllUp->GetDefStrip(4);
+			nSum += nMer[4];
+			if (nTot > 0)
+				dRatio = ((double)(nStTot - nMer[4]) / (double)nStTot) * 100.0;
+			else
+				dRatio = 0.0;
+
+			SocketData.nMsgID = _stItemInx::_5LnGoodRtoTot;
+			SocketData.fData1 = dRatio;
+			SendCommand(SocketData);
+
+			nMer[5] = pDoc->m_pReelMapAllUp->GetDefStrip(5);
+			nSum += nMer[5];
+			if (nTot > 0)
+				dRatio = ((double)(nStTot - nMer[5]) / (double)nStTot) * 100.0;
+			else
+				dRatio = 0.0;
+
+			SocketData.nMsgID = _stItemInx::_6LnGoodRtoTot;
+			SocketData.fData1 = dRatio;
+			SendCommand(SocketData);
+		}
 
 		if (nTot > 0)
 			dRatio = ((double)(nTot - nSum) / (double)nTot) * 100.0;

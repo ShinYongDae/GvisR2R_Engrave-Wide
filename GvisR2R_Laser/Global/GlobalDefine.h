@@ -12,10 +12,10 @@
 
 #define TEST_MODE		1
 #ifndef MAX_STRIP
-	#define MAX_STRIP				4
+	#define MAX_STRIP				6
 #endif
 
-#define MAX_STRIP_NUM				4
+#define MAX_STRIP_NUM				6
 #define MAX_PCE_COL					100
 #define MAX_PCE_ROW					100
 
@@ -1063,7 +1063,7 @@ struct stYield
 {
 	int nTot, nGood, nDef;
 	int nTotSriptOut;
-	int nDefStrip[4], nDefA[MAX_DEF], nDefPerStrip[4][MAX_DEF], nStripOut[4];
+	int nDefStrip[MAX_STRIP], nDefA[MAX_DEF], nDefPerStrip[MAX_STRIP][MAX_DEF], nStripOut[MAX_STRIP];
 
 	stYield()
 	{
@@ -1076,7 +1076,7 @@ struct stYield
 		{
 			nDefA[k] = 0;
 
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < MAX_STRIP; i++)
 			{
 				nDefPerStrip[i][k] = 0;
 			}
@@ -1088,23 +1088,6 @@ struct stYield
 		;
 	}
 };
-
-
-// struct stMasterInfo
-// {
-// 	double dPixelSize;
-// 	CString strMasterLocation, strCADImgPath, strCADImgBackUpPath, strTwoMetalOppLayer;
-// 	int nImageCompression;
-// 	BOOL bTwoMetalInspection;
-// 
-// 	stMasterInfo()
-// 	{
-// 		dPixelSize=0.0;
-// 		strMasterLocation=""); strCADImgPath=""); strCADImgBackUpPath=""); strTwoMetalOppLayer="");
-// 		nImageCompression=0;
-// 		bTwoMetalInspection=FALSE;
-// 	}
-// };
 
 
 struct stSliceIo

@@ -19,14 +19,13 @@ class CDlgMenu05 : public CDialog
 	int m_nCurSelLotIdx, m_nCurSelLayerIdx;
 	int m_nCntModelNames, m_nCntLotNames; 
 	CString m_strLotStartTime, m_strLotEndTime, m_strLotWorkingTime;
-	int m_nEntirePieceNum, m_nGoodPieceNum, m_nDefectPieceNum, m_nEntireStripDef[4];
+	int m_nEntirePieceNum, m_nGoodPieceNum, m_nDefectPieceNum, m_nEntireStripDef[MAX_STRIP];
 	int m_nEntireStripNum;
 
 	CString m_strDefectTitle[MAX_DEF];
-	int m_nDefStrip[4], m_nDefPerStrip[4][MAX_DEF];
-	int m_nStripOut[4], m_nTotStOut;
+	int m_nDefStrip[MAX_STRIP], m_nDefPerStrip[MAX_STRIP][MAX_DEF];
+	int m_nStripOut[MAX_STRIP], m_nTotStOut;
 	int m_nEntireAddedDefect[MAX_DEF];
-// 	int m_nArrayDefNum[MAX_DEF][MAX_DEF];
 
 	CMyStatic myStcLot, myStcSerialSt, myStcSerialEd, myStcFromTo, myStcProc;
 	CString m_sEditRst;//, m_sRmapPath; 
@@ -43,7 +42,6 @@ class CDlgMenu05 : public CDialog
 	void DisplayResultData();
 	int CntModelNames();
 	int CntLotNamesInModelFolder();
-// 	CString SearchLayerName();
 	CString DisplayData();
 	BOOL ShowKeypad(int nCtlID, CPoint ptSt=(0, 0), int nDir=TO_NONE);
 	void InitStc();

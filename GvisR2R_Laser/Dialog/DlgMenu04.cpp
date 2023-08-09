@@ -1043,14 +1043,6 @@ void CDlgMenu04::OnStc104()
 	if (pView && pView->m_pEngrave)
 		pView->m_pEngrave->SetAoiPushOffLen();	//_ItemInx::_AoiPushOffLen
 #endif
-
-// 	pDoc->WorkingInfo.Motion.sAoiTq = sData;
-// 	::WritePrivateProfileString(_T("Motion"), _T("AOI_TENSION_SERVO_TORQUE"), sData, sPath);
-// 	
-// 	// 정격토크 : 1.27 N*m = 127 N*cm = 12.95 Kgf*cm = 10922 (32767/3) pulse
-// 	// 843.0 [pulse/Kgf]
-// 	if(pView->m_pMotion)
-// 		pView->m_pMotion->SetTorque(AXIS_AOITQ, _tstof(pDoc->WorkingInfo.Motion.sAoiTq));
 }
 
 void CDlgMenu04::OnStc108() 
@@ -1077,14 +1069,6 @@ void CDlgMenu04::OnStc108()
 	if (pView && pView->m_pEngrave)
 		pView->m_pEngrave->SetMkPushOffLen();	//_ItemInx::_MkPushOffLen
 #endif
-
-// 	pDoc->WorkingInfo.Motion.sMkTq = sData;
-// 	::WritePrivateProfileString(_T("Motion"), _T("MARKING_TENSION_SERVO_TORQUE"), sData, sPath);
-// 	
-// 	// 정격토크 : 1.27 N*m = 127 N*cm = 12.95 Kgf*cm = 10922 (32767/3) pulse
-// 	// 843.0 [pulse/Kgf]
-// 	if(pView->m_pMotion)
-// 		pView->m_pMotion->SetTorque(AXIS_MKTQ, _tstof(pDoc->WorkingInfo.Motion.sMkTq));
 }
 
 void CDlgMenu04::OnStc204() 
@@ -1219,7 +1203,6 @@ void CDlgMenu04::DispBufEnc()
 		return;
 
 	CString str;
-	//double dBufEnc = (double)pDoc->m_pMpeData[0][2]	/ 1000.0;	// 마킹부 버퍼 엔코더 값(단위 mm * 1000)
 	double dBufEnc = _tstof(pDoc->WorkingInfo.Motion.sEngBuffCurrPos);
 	str.Format(_T("%.1f"), dBufEnc);
 	myStcData[14].SetText(str);
@@ -1246,19 +1229,6 @@ void CDlgMenu04::DispBufEnc()
 		}
 	}
 #endif
-
-//	if (!pDoc->m_pMpeData)
-//		return;
-//
-//	CString str;
-//	double dBufEnc = (double)pDoc->m_pMpeData[0][1]	/ 1000.0;	// 마킹부 버퍼 엔코더 값(단위 mm * 1000)
-//	str.Format(_T("%.1f"), dBufEnc);
-//	myStcData[14].SetText(str);
-//
-//#ifdef USE_ENGRAVE
-//	if (pView && pView->m_pEngrave)
-//		pView->m_pEngrave->SetMkBuffCurrPos();	//_ItemInx::_MkBuffCurrPos (Engrave)
-//#endif
 }
 
 void CDlgMenu04::OnTimer(UINT_PTR nIDEvent)//(UINT nIDEvent)
@@ -1301,8 +1271,6 @@ void CDlgMenu04::SwMyBtnDown(int nCtrlID)
 		if(pView->m_pMpe)
 			pView->m_pMpe->Write(_T("MB005513"), 1);		// 마킹부 피딩 정회전 스위치
 #endif
-// 		if(pView->m_pMotion)
-// 			pView->m_pMotion->VMove(MS_MKFD, M_CW);
 		break;
 
 	case IDC_BTN_BUFF_DN2:
@@ -1319,8 +1287,6 @@ void CDlgMenu04::SwMyBtnDown(int nCtrlID)
 		if(pView->m_pMpe)
 			pView->m_pMpe->Write(_T("MB005514"), 1);		// 마킹부 피딩 역회전 스위치
 #endif
-// 		if(pView->m_pMotion)
-// 			pView->m_pMotion->VMove(MS_MKFD, M_CCW);
 		break;
 	}
 }
@@ -1403,12 +1369,6 @@ void CDlgMenu04::ResetMotion(int nMsId)
 			Sleep(30);
 			pView->m_pMotion->ServoOnOff(AXIS_Y0, TRUE);
 		}
-		//else if(nMsId==MS_X1Y1 || nMsId==MS_X1 || nMsId==MS_Y1)
-		//{
-		//	pView->m_pMotion->ServoOnOff(AXIS_X1, TRUE);
-		//	Sleep(30);
-		//	pView->m_pMotion->ServoOnOff(AXIS_Y1, TRUE);
-		//}
 		else
 			pView->m_pMotion->ServoOnOff(nMsId, TRUE);
 	
@@ -1463,43 +1423,6 @@ void CDlgMenu04::OnBtnBuffInitMove2()
 #endif
 	if(pView->m_pDlgMenu03)
 		pView->m_pDlgMenu03->ChkEngBufInitDone();
-
-// 	if(!pView->m_pMotion)
-// 		return;
-// 
-// 	pView->SetMkFdSts();
-// 	Sleep(300);
-// 
-// 	double dDir;
-// 	double fLen, fVel, fAcc, fJerk;
-// 	double dStPos = pView->m_pMotion->m_dStBufPos;
-// 	double dCurPosMkFd = (double)pDoc->m_pMpeData[0][0];		// 마킹부 Feeding 엔코더 값(단위 mm )
-// 	double dCurPosBuf = (double)pDoc->m_pMpeData[0][1] / 1000.0;		// 마킹부 버퍼 엔코더 값(단위 mm * 1000)
-// 
-// 	fLen = dStPos - dCurPosBuf;
-// 
-// 	if(fLen > 0)
-// 	{
-// 		fLen = (dStPos-dCurPosBuf);
-// 		dDir = (double)M_CCW;
-// 	}
-// 	else
-// 	{
-// 		fLen = (dCurPosBuf-dStPos);
-// 		dDir = (double)M_CW;
-// 	}
-// 
-// 	if(fLen > 0.001)
-// 	{
-// // 		double dPos = dCurPosMkFd + dDir*fLen;
-// // 		pView->m_pMotion->GetSpeedProfile(TRAPEZOIDAL, AXIS_MKFD, fLen, fVel, fAcc, fJerk);
-// // 		pView->m_pMotion->Move(MS_MKFD, dPos, fVel/10.0, fAcc/10.0, fAcc/10.0);
-// 		fVel = pView->m_pMotion->m_pParamMotion[MS_MKFD].Home.f1stSpd;
-// 		fAcc = pView->m_pMotion->m_pParamMotion[MS_MKFD].Home.fAcc;
-// 		if(!pView->m_pMotion->Move(MS_MKFD, dDir*fLen, fVel, fAcc, fAcc, INC, WAIT))
-// 			if(!pView->m_pMotion->Move(MS_MKFD, dDir*fLen, fVel, fAcc, fAcc, INC, WAIT))
-// 				AfxMessageBox("Move XY Error...");
-// 	}	
 }
 
 void CDlgMenu04::OnBtnBuffInitSave2() 
@@ -1507,8 +1430,6 @@ void CDlgMenu04::OnBtnBuffInitSave2()
 	// TODO: Add your control notification handler code here
 	if(!pView->m_pMotion)
 		return;
-
-//	if(IDNO == pView->DoMyMsgBox(_T("Do you want to save Buffer Position?"), MB_YESNO))
 	if(IDNO == pView->MsgBox(_T("Do you want to save Buffer Position?"), 0, MB_YESNO))
 		return;
 
@@ -1544,8 +1465,6 @@ void CDlgMenu04::OnStc48()
 	GetDlgItem(IDC_STC_48)->GetWindowText(sData);
 	pDoc->SetWaitPos1(_tstof(sData));
 
-	//pView->m_pVoiceCoil[0]->SetMarkShiftData(0);
-
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
 		pView->m_pEngrave->SetMkInitPosLf();	//_ItemInx::_MkInitPosLf
@@ -1569,8 +1488,6 @@ void CDlgMenu04::OnStc52()
 	CString sData;
 	GetDlgItem(IDC_STC_52)->GetWindowText(sData);
 	pDoc->SetWaitVel1(_tstof(sData));
-
-	//pView->m_pVoiceCoil[0]->SetMarkShiftData(0);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -1596,8 +1513,6 @@ void CDlgMenu04::OnStc55()
 	GetDlgItem(IDC_STC_55)->GetWindowText(sData);
 	pDoc->SetWaitAcc1(_tstof(sData));	
 
-	//pView->m_pVoiceCoil[0]->SetMarkShiftData(0);
-
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
 		pView->m_pEngrave->SetMkInitAccLf();	//_ItemInx::_MkInitAccLf
@@ -1621,8 +1536,6 @@ void CDlgMenu04::OnStc58()
 	CString sData;
 	GetDlgItem(IDC_STC_58)->GetWindowText(sData);
 	pDoc->SetMarkingPos1(_tstof(sData));	
-	
-	//pView->m_pVoiceCoil[0]->SetMarkFinalData(0);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -1648,8 +1561,6 @@ void CDlgMenu04::OnStc62()
 	GetDlgItem(IDC_STC_62)->GetWindowText(sData);
 	pDoc->SetMarkingVel1(_tstof(sData));
 
-	//pView->m_pVoiceCoil[0]->SetMarkFinalData(0);
-
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
 		pView->m_pEngrave->SetMkFnlVelLf();	//_ItemInx::_MkFnlVelLf
@@ -1673,8 +1584,6 @@ void CDlgMenu04::OnStc65()
 	CString sData;
 	GetDlgItem(IDC_STC_65)->GetWindowText(sData);
 	pDoc->SetMarkingAcc1(_tstof(sData));
-	
-	//pView->m_pVoiceCoil[0]->SetMarkFinalData(0);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -1699,8 +1608,6 @@ void CDlgMenu04::OnStc68()
 	CString sData;
 	GetDlgItem(IDC_STC_68)->GetWindowText(sData);
 	pDoc->SetMarkingToq1(_tstof(sData));
-
-	//pView->m_pVoiceCoil[0]->SetMarkFinalData(0);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -1941,8 +1848,6 @@ void CDlgMenu04::OnStc93()
 	CString sData;
 	GetDlgItem(IDC_STC_93)->GetWindowText(sData);
 	pDoc->SetWaitPos2(_tstof(sData));	
-	
-	//pView->m_pVoiceCoil[1]->SetMarkShiftData(1);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -1968,8 +1873,6 @@ void CDlgMenu04::OnStc97()
 	GetDlgItem(IDC_STC_97)->GetWindowText(sData);
 	pDoc->SetWaitVel2(_tstof(sData));	
 
-	//pView->m_pVoiceCoil[1]->SetMarkShiftData(1);
-
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
 		pView->m_pEngrave->SetMkInitVelRt();	//_ItemInx::_MkInitVelRt
@@ -1993,8 +1896,6 @@ void CDlgMenu04::OnStc110()
 	CString sData;
 	GetDlgItem(IDC_STC_110)->GetWindowText(sData);
 	pDoc->SetWaitAcc2(_tstof(sData));	
-	
-	//pView->m_pVoiceCoil[1]->SetMarkShiftData(1);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -2019,8 +1920,6 @@ void CDlgMenu04::OnStc113()
 	CString sData;
 	GetDlgItem(IDC_STC_113)->GetWindowText(sData);
 	pDoc->SetMarkingPos2(_tstof(sData));
-	
-	//pView->m_pVoiceCoil[1]->SetMarkFinalData(1);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -2045,8 +1944,6 @@ void CDlgMenu04::OnStc117()
 	CString sData;
 	GetDlgItem(IDC_STC_117)->GetWindowText(sData);
 	pDoc->SetMarkingVel2(_tstof(sData));
-	
-	//pView->m_pVoiceCoil[1]->SetMarkFinalData(1);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -2071,8 +1968,6 @@ void CDlgMenu04::OnStc120()
 	CString sData;
 	GetDlgItem(IDC_STC_120)->GetWindowText(sData);
 	pDoc->SetMarkingAcc2(_tstof(sData));
-	
-	//pView->m_pVoiceCoil[1]->SetMarkFinalData(1);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -2097,8 +1992,6 @@ void CDlgMenu04::OnStc123()
 	CString sData;
 	GetDlgItem(IDC_STC_123)->GetWindowText(sData);
 	pDoc->SetMarkingToq2(_tstof(sData));
-	
-	//pView->m_pVoiceCoil[1]->SetMarkFinalData(1);
 
 #ifdef USE_ENGRAVE
 	if (pView && pView->m_pEngrave)
@@ -2541,7 +2434,6 @@ void CDlgMenu04::OnStc222()
 void CDlgMenu04::OnBtnResetMkL() 
 {
 	// TODO: Add your control notification handler code here
-//	if(IDYES == pView->DoMyMsgBox(_T("마킹(좌)의 카운트를 리세하시겠습니까?"), MB_YESNO))
 	if(IDYES == pView->MsgBox(_T("마킹(좌)의 카운트를 리세하시겠습니까?"), 0, MB_YESNO))
 	{
 		pDoc->SetMkCntL(0);
@@ -2557,7 +2449,6 @@ void CDlgMenu04::OnBtnResetMkL()
 void CDlgMenu04::OnBtnResetMkR() 
 {
 	// TODO: Add your control notification handler code here
-//	if(IDYES == pView->DoMyMsgBox(_T("마킹(우)의 카운트를 리세하시겠습니까?"), MB_YESNO))
 	if(IDYES == pView->MsgBox(_T("마킹(우)의 카운트를 리세하시겠습니까?"), 0, MB_YESNO))
 	{
 		pDoc->SetMkCntR(0);
@@ -2590,8 +2481,6 @@ void CDlgMenu04::OnStc69()
 	pDoc->SetMarkingToq1Offset(_tstof(sData));
 	str.Format(_T("\r(0~1900)\rg(%.0f)"), _tstof(pDoc->WorkingInfo.Marking[0].sMarkingToqOffset));
 	GetDlgItem(IDC_STC_69)->SetWindowText(str);
-
-	//pView->m_pVoiceCoil[0]->SetMarkFinalData(0);
 }
 
 void CDlgMenu04::OnStc124() 
@@ -2613,8 +2502,6 @@ void CDlgMenu04::OnStc124()
 	pDoc->SetMarkingToq2Offset(_tstof(sData));
 	str.Format(_T("\r(0~1900)\rg(%.0f)"), _tstof(pDoc->WorkingInfo.Marking[1].sMarkingToqOffset));
 	GetDlgItem(IDC_STC_124)->SetWindowText(str);
-	
-	//pView->m_pVoiceCoil[1]->SetMarkFinalData(1);
 }
 
 BOOL CDlgMenu04::OnEraseBkgnd(CDC* pDC)
@@ -2624,8 +2511,6 @@ BOOL CDlgMenu04::OnEraseBkgnd(CDC* pDC)
 	GetClientRect(rect);
 	pDC->FillSolidRect(rect, RGB_DLG_FRM);
 	return TRUE;
-
-	//return CDialog::OnEraseBkgnd(pDC);
 }
 
 void CDlgMenu04::UpdateData()

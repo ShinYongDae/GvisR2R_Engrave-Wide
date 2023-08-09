@@ -47,14 +47,21 @@ void CYield::SetDef(int nSerial, int *pDef)	// int pDef[4];
 		return;
 	}
 
+	int nMaxStrip;
+#ifdef USE_CAM_MASTER
+	nMaxStrip = pDoc->m_Master[0].GetStripNum(); // ÃÑ ½ºÆ®¸³ÀÇ °¹¼ö
+#else
+	nMaxStrip = MAX_STRIP;
+#endif
+
 	if(nSerial>m_nSerial)
 	{
 		bValid = TRUE;
 		m_nSerial = nSerial;
 		nTot = nCol*nRow*m_nSerial;
 		nAllDef=0;
-		int nTotSt = nTot/4;
-		for(int i=0; i<4; i++)
+		int nTotSt = nTot / nMaxStrip;
+		for(int i=0; i<nMaxStrip; i++)
 		{
 			nTotDef[i] += pDef[i];
 			dYield[i] = 100.0*(double)(nTotSt-nTotDef[i])/(double)nTotSt;
