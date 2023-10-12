@@ -1409,6 +1409,10 @@ void CEngrave::GetSysData(SOCKET_DATA SockData)
 
 void CEngrave::GetOpInfo(SOCKET_DATA SockData)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	long lData;
 
 	int nCmdCode = SockData.nCmdCode; // _SetSig or _SetData
@@ -1747,6 +1751,10 @@ void CEngrave::GetOpInfo(SOCKET_DATA SockData)
 
 void CEngrave::GetInfo(SOCKET_DATA SockData)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	int nCmdCode = SockData.nCmdCode;
 	int nMsgId = SockData.nMsgID;
 
@@ -2582,6 +2590,10 @@ void CEngrave::GetEngInfo(SOCKET_DATA SockData)
 
 void CEngrave::GetFdInfo(SOCKET_DATA SockData)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	long lData;
 
 	int nCmdCode = SockData.nCmdCode;
@@ -2661,6 +2673,10 @@ void CEngrave::GetFdInfo(SOCKET_DATA SockData)
 
 void CEngrave::GetAoiInfo(SOCKET_DATA SockData)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	long lData;
 
 	int nCmdCode = SockData.nCmdCode;
@@ -2718,6 +2734,10 @@ void CEngrave::GetAoiInfo(SOCKET_DATA SockData)
 
 void CEngrave::GetMkInfo(SOCKET_DATA SockData)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	long lData;
 	CString sData;
 
@@ -2793,6 +2813,10 @@ void CEngrave::GetMkInfo(SOCKET_DATA SockData)
 
 void CEngrave::GetMkInfoLf(SOCKET_DATA SockData)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	int nCmdCode = SockData.nCmdCode;
 	int nMsgId = SockData.nMsgID;
 
@@ -2895,6 +2919,10 @@ void CEngrave::GetMkInfoLf(SOCKET_DATA SockData)
 
 void CEngrave::GetMkInfoRt(SOCKET_DATA SockData)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	int nCmdCode = SockData.nCmdCode;
 	int nMsgId = SockData.nMsgID;
 
@@ -2997,6 +3025,10 @@ void CEngrave::GetMkInfoRt(SOCKET_DATA SockData)
 
 void CEngrave::GetAlarmMsg(SOCKET_DATA SockData)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	int nCmdCode = SockData.nCmdCode;
 	int nMsgId = SockData.nMsgID;
 	CString sVal;

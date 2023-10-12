@@ -1439,20 +1439,6 @@ BOOL CCamMaster::CADImgBufAlloc(TCHAR *strCADImg, int CellNum, BOOL bOppLayerF)
 
 void CCamMaster::LoadAlignImg()
 {
-/*
-	char FN[200];
-
-	sprintf(FN, "%s%s\\%s-md0.tif",strSpecPath,strModel,strLayer);
-	VicFileLoad(pGlobalView->m_pDlgSetPunchAlign->m_VisionFirst.m_MilAlign0PositionImg, FN);
-	
-	sprintf(FN, "%s%s\\%s-md1.tif",strSpecPath,strModel,strLayer);
-	VicFileLoad(pGlobalView->m_pDlgSetPunchAlign->m_VisionFirst.m_MilAlign1PositionImg, FN);
-
-	sprintf(FN, "c:\\test100.tif");
-	MbufSave(FN, pGlobalView->m_pDlgSetPunchAlign->m_VisionFirst.m_MilAlign0PositionImg);
-	sprintf(FN, "c:\\test200.tif");
-	MbufSave(FN, pGlobalView->m_pDlgSetPunchAlign->m_VisionFirst.m_MilAlign1PositionImg);
-*/
 	BOOL prcStopF = FALSE;
 	//char FileNAlign[MAX_PATH], FileNLoc[MAX_PATH];
 	TCHAR FileNLoc[MAX_PATH];
@@ -1463,16 +1449,13 @@ void CCamMaster::LoadAlignImg()
 	DWORD dwMilliseconds = 10;
 
 	pView->DispMsg(_T("Align 이미지를 다운로드 중입니다."), _T("Align 이미지"), RGB_GREEN, DELAY_TIME_MSG);
-	//sprintf(FileNLoc, "C:\\R2RSet\\Align");
 	_stprintf(FileNLoc, _T("%s"), _T("C:\\R2RSet\\Align"));
 
-	//if(!AlignFindFile.FindFile(FileNLoc))
 	if (!pDoc->DirectoryExists(FileNLoc))
 	{
 		if(!CreateDirectory(FileNLoc, NULL))
 		{
 			pView->MsgBox(_T("Can not Create Align Directory"));
-// 			AfxMessageBox(_T("Can not Create CAD Directory"),MB_ICONSTOP|MB_OK);
 		}
 	}
 	else

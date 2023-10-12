@@ -1836,68 +1836,6 @@ UINT CGvisR2R_LaserView::ThreadProc0(LPVOID lpContext)
 		{
 			bLock = TRUE;
 			pThread->GetCurrentInfoSignal();
-
-			/*
-			if (pDoc->BtnStatus.EngAuto.IsMkSt)
-			{
-				pDoc->BtnStatus.EngAuto.IsMkSt = FALSE;
-				pThread->m_pEngrave->IsSwEngAutoMkSt(pDoc->BtnStatus.EngAuto.MkSt);
-			}
-
-			if (pDoc->BtnStatus.EngAuto.IsRead2dSt)
-			{
-				pDoc->BtnStatus.EngAuto.IsRead2dSt = FALSE;
-				pThread->m_pEngrave->IsSwEngAuto2dReadSt(pDoc->BtnStatus.EngAuto.Read2dSt);
-			}
-			
-			if (pDoc->BtnStatus.Disp.IsReady)
-			{
-				pDoc->BtnStatus.Disp.IsReady = FALSE;
-				pThread->m_pEngrave->IsSetDispReady(pDoc->BtnStatus.Disp.Ready);
-			}
-
-			if (pDoc->BtnStatus.Disp.IsRun)
-			{
-				pDoc->BtnStatus.Disp.IsRun = FALSE;
-				pThread->m_pEngrave->IsSetDispRun(pDoc->BtnStatus.Disp.Run);
-			}
-
-			if (pDoc->BtnStatus.Disp.IsStop)
-			{
-				pDoc->BtnStatus.Disp.IsStop = FALSE;
-				pThread->m_pEngrave->IsSetDispStop(pDoc->BtnStatus.Disp.Stop);
-			}
-
-			if (pDoc->BtnStatus.Disp.IsDualSample)
-			{
-				pDoc->BtnStatus.Disp.IsDualSample = FALSE;
-				pThread->m_pEngrave->IsSetDispDualSample(pDoc->BtnStatus.Disp.Stop);
-			}
-
-			if (pDoc->BtnStatus.Disp.IsSingleSample)
-			{
-				pDoc->BtnStatus.Disp.IsSingleSample = FALSE;
-				pThread->m_pEngrave->IsSetDispSingleSample(pDoc->BtnStatus.Disp.SingleSample);
-			}
-
-			if (pDoc->BtnStatus.Disp.IsDualTest)
-			{
-				pDoc->BtnStatus.Disp.IsDualTest = FALSE;
-				pThread->m_pEngrave->IsSetDispDualTest(pDoc->BtnStatus.Disp.DualTest);
-			}
-
-			if (pDoc->BtnStatus.Disp.IsSingleTest)
-			{
-				pDoc->BtnStatus.Disp.IsSingleTest = FALSE;
-				pThread->m_pEngrave->IsSetDispDualTest(pDoc->BtnStatus.Disp.SingleTest);
-			}
-
-			if (pDoc->BtnStatus.Disp.IsSingleTest)
-			{
-				pDoc->BtnStatus.Disp.IsSingleTest = FALSE;
-				pThread->m_pEngrave->IsSetDispDualTest(pDoc->BtnStatus.Disp.SingleTest);
-			}
-			*/
 			bLock = FALSE;
 		}
 		Sleep(100);
@@ -1958,7 +1896,6 @@ UINT CGvisR2R_LaserView::ThreadProc2(LPVOID lpContext)
 			{
 				pThread->DispDefImg();
 				pThread->UpdateLotTime();
-
 				Sleep(0);
 			}
 			else

@@ -916,6 +916,10 @@ BOOL CGvisR2R_LaserDoc::LoadDataInfo()
 
 BOOL CGvisR2R_LaserDoc::LoadWorkingInfo()
 {
+#ifdef TEST_MODE
+	return TRUE;
+#endif
+
 	TCHAR szData[200];
 	CString sVal, sPath = PATH_WORKING_INFO;
 	pView->ClrDispMsg();

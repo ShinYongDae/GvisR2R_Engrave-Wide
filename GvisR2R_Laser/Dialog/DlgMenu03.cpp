@@ -325,8 +325,10 @@ BOOL CDlgMenu03::OnInitDialog()
 	GetDlgItem(IDC_STC_12_31)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_CHK_40)->ShowWindow(SW_HIDE);	// Uncoiler-Stop
 
+#ifndef TEST_MODE
 	m_bTIM_MENU03_DISP = TRUE;
 	SetTimer(TIM_MENU03_DISP, 300, NULL);	// Disp();
+#endif
 
 	
 	return TRUE;  // return TRUE unless you set the focus to a control

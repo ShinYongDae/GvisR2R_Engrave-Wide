@@ -45,6 +45,7 @@ CDlgMenu04::CDlgMenu04(CWnd* pParent /*=NULL*/)
 CDlgMenu04::~CDlgMenu04()
 {
 	m_bTIM_BUF_ENC = FALSE;
+	DelImg();
 	if(m_pRect)
 	{
 		delete m_pRect;
@@ -240,8 +241,8 @@ BOOL CDlgMenu04::OnInitDialog()
 	GetDlgItem(IDC_STC_00_5)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_CHK_2)->ShowWindow(SW_HIDE);
 	
-	m_bTIM_BUF_ENC = TRUE;
-	SetTimer(TIM_BUF_ENC_, 100, NULL);
+	//m_bTIM_BUF_ENC = TRUE;
+	//SetTimer(TIM_BUF_ENC_, 100, NULL);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -1234,13 +1235,13 @@ void CDlgMenu04::DispBufEnc()
 void CDlgMenu04::OnTimer(UINT_PTR nIDEvent)//(UINT nIDEvent)
 {
 	// TODO: Add your message handler code here and/or call default
-	if(nIDEvent == TIM_BUF_ENC_)
-	{
-		KillTimer(TIM_BUF_ENC_);
-		DispBufEnc();
-		if (m_bTIM_BUF_ENC)
-			SetTimer(TIM_BUF_ENC_, 100, NULL);
-	}
+	//if(nIDEvent == TIM_BUF_ENC_)
+	//{
+	//	KillTimer(TIM_BUF_ENC_);
+	//	DispBufEnc();
+	//	if (m_bTIM_BUF_ENC)
+	//		SetTimer(TIM_BUF_ENC_, 100, NULL);
+	//}
 	
 	CDialog::OnTimer(nIDEvent);
 }

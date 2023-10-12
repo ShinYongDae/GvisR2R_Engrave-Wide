@@ -1713,7 +1713,7 @@ void CDlgMenu01::InitBtn()
 	{
 		if(i==1 || i==2)
 			myBtn[i].SetFont(_T("±¼¸²Ã¼"),12,TRUE);
-		else if(i==7 || i==8 || i==9 || i==10 || i==11 || i==21 || i==22)
+		else if(i==7 || i==8 || i==9 || i==10 || i==11 || i==23 || i==24)
 			myBtn[i].SetFont(_T("±¼¸²Ã¼"),11,TRUE);
 		else if(i==12 || i==13 || i==14)
 			myBtn[i].SetFont(_T("±¼¸²Ã¼"),12,TRUE);
@@ -3985,8 +3985,8 @@ void CDlgMenu01::SetStripAllMk()
 	myBtn[10].SetCheck(TRUE); // IDC_CHK_MK_4
 	if (nMaxStrip == 6)
 	{
-		myBtn[25].SetCheck(TRUE); // IDC_CHK_MK_5
-		myBtn[26].SetCheck(TRUE); // IDC_CHK_MK_6
+		myBtn[23].SetCheck(TRUE); // IDC_CHK_MK_5
+		myBtn[24].SetCheck(TRUE); // IDC_CHK_MK_6
 	} 
 
 	this->MoveWindow(m_pRect, TRUE);
@@ -4008,8 +4008,8 @@ void CDlgMenu01::EnableBtn(BOOL bEnable)
 	myBtn[10].EnableWindow(bEnable); // IDC_CHK_MK_4
 	if (nMaxStrip == 6)
 	{
-		myBtn[25].EnableWindow(bEnable); // IDC_CHK_MK_5
-		myBtn[26].EnableWindow(bEnable); // IDC_CHK_MK_6
+		myBtn[23].EnableWindow(bEnable); // IDC_CHK_MK_5
+		myBtn[24].EnableWindow(bEnable); // IDC_CHK_MK_6
 	}
 }
 
@@ -4059,11 +4059,11 @@ BOOL CDlgMenu01::GetChkStrip(int nStrip) // 0, 1, 2, 3
 			bOn = FALSE;
 		break;
 	case 4:
-		if (!myBtn[25].GetCheck()) // IDC_CHK_MK_5
+		if (!myBtn[23].GetCheck()) // IDC_CHK_MK_5
 			bOn = FALSE;
 		break;
 	case 5:
-		if (!myBtn[26].GetCheck()) // IDC_CHK_MK_6
+		if (!myBtn[24].GetCheck()) // IDC_CHK_MK_6
 			bOn = FALSE;
 		break;
 	}
@@ -4770,21 +4770,21 @@ LRESULT CDlgMenu01::OnMyBtnDblClk(WPARAM wPara, LPARAM lPara)
 	case IDC_CHK_MK_5:
 		if (nMaxStrip == 6)
 		{
-			bOn = myBtn[25].GetCheck();
+			bOn = myBtn[23].GetCheck();
 			if (!bOn)
-				myBtn[25].SetCheck(TRUE); // IDC_CHK_MK_5
+				myBtn[23].SetCheck(TRUE); // IDC_CHK_MK_5
 			else
-				myBtn[25].SetCheck(FALSE); // IDC_CHK_MK_5
+				myBtn[23].SetCheck(FALSE); // IDC_CHK_MK_5
 		}
 		break;
 	case IDC_CHK_MK_6:
 		if (nMaxStrip == 6)
 		{
-			bOn = myBtn[26].GetCheck();
+			bOn = myBtn[24].GetCheck();
 			if (!bOn)
-				myBtn[26].SetCheck(TRUE); // IDC_CHK_MK_6
+				myBtn[24].SetCheck(TRUE); // IDC_CHK_MK_6
 			else
-				myBtn[26].SetCheck(FALSE); // IDC_CHK_MK_6
+				myBtn[24].SetCheck(FALSE); // IDC_CHK_MK_6
 		}
 		break;
 	}

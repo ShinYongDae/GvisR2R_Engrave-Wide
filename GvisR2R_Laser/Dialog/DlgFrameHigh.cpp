@@ -359,9 +359,6 @@ void CDlgFrameHigh::OnPaint()
 	CPaintDC dc(this); // device context for painting
 	
 	// TODO: Add your message handler code here
-// 	CRect rect(0,0,0,0);
-// 	GetClientRect(&rect);
-// 	myPic.Show(&dc,rect);
 	
 	// Do not call CDialog::OnPaint() for painting messages
 }
@@ -480,19 +477,6 @@ void CDlgFrameHigh::OnTimer(UINT_PTR nIDEvent)//(UINT nIDEvent)
 
 void CDlgFrameHigh::ChkFdEnc()
 {
-// 	double dLimit = (double)MAX_ENC_CNT / 2.0;
-// 	double dCurPosMkFd = (double)pDoc->m_pMpeData[0][0];	// 마킹부 Feeding 엔코더 값(단위 mm )
-// 	if(dCurPosMkFd > dLimit || dCurPosMkFd < - dLimit)
-// 	{
-// 		if(pView->m_pMotion)
-// 			pView->m_pMotion->SetOriginPos(AXIS_MKFD);
-// 	}
-// 
-// 	if(pView->m_dEnc[AXIS_AOIFD] > dLimit || pView->m_dEnc[AXIS_AOIFD] < - dLimit)
-// 	{
-// 		if(pView->m_pMotion)
-// 			pView->m_pMotion->SetOriginPos(AXIS_AOIFD);
-// 	}
 }
 
 void CDlgFrameHigh::DispFdOffset()
@@ -593,6 +577,10 @@ BOOL CDlgFrameHigh::PreTranslateMessage(MSG* pMsg)
 
 void CDlgFrameHigh::SetMkLastShot(int nSerial)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	if(nSerial < 0)
 	{
 		return;
@@ -611,6 +599,10 @@ void CDlgFrameHigh::SetMkLastShot(int nSerial)
 
 void CDlgFrameHigh::SetAoiLastShot(int nAoi, int nSerial)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	if(nSerial < 0 || nAoi < 0  || nAoi > 1)
 	{
 		return;
@@ -651,6 +643,10 @@ void CDlgFrameHigh::SetDualTest(BOOL bOn)
 
 void CDlgFrameHigh::SetEngraveLastShot(int nSerial)
 {
+#ifdef TEST_MODE
+	return;
+#endif
+
 	if (nSerial < 0)
 	{
 		return;
