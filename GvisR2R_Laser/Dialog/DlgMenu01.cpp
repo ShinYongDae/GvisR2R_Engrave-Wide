@@ -4978,9 +4978,19 @@ void CDlgMenu01::DispTotRatioIts()
 
 	// 頂類
 	if (pDoc->WorkingInfo.LastJob.bDualTestInner)
-		pDoc->m_pReelMapInnerAllUp->GetPcsNum(nGood, nBad);
+	{
+		if (pDoc->m_pReelMapInnerAllUp)
+			pDoc->m_pReelMapInnerAllUp->GetPcsNum(nGood, nBad);
+		else
+			return;
+	}
 	else
-		pDoc->m_pReelMapInnerUp->GetPcsNum(nGood, nBad);
+	{
+		if (pDoc->m_pReelMapInnerUp)
+			pDoc->m_pReelMapInnerUp->GetPcsNum(nGood, nBad);
+		else
+			return;
+	}
 
 	nTot = nGood + nBad;
 
@@ -5167,6 +5177,8 @@ void CDlgMenu01::DispStripRatioIts()
 	// 頂類
 	if (pDoc->WorkingInfo.LastJob.bDualTestInner)
 	{
+		if (!pDoc->m_pReelMapInnerAllUp)
+			return;
 		nVal[1][0] = pDoc->m_pReelMapInnerAllUp->GetDefStrip(0);
 		nVal[1][1] = pDoc->m_pReelMapInnerAllUp->GetDefStrip(1);
 		nVal[1][2] = pDoc->m_pReelMapInnerAllUp->GetDefStrip(2);
@@ -5179,6 +5191,8 @@ void CDlgMenu01::DispStripRatioIts()
 	}
 	else
 	{
+		if (!pDoc->m_pReelMapInnerAllUp)
+			return;
 		nVal[1][0] = pDoc->m_pReelMapInnerUp->GetDefStrip(0);
 		nVal[1][1] = pDoc->m_pReelMapInnerUp->GetDefStrip(1);
 		nVal[1][2] = pDoc->m_pReelMapInnerUp->GetDefStrip(2);
@@ -5256,6 +5270,8 @@ void CDlgMenu01::DispStripRatioIts()
 	nSum = 0;
 
 	// 諼類 + 頂類
+	if (!pDoc->m_pReelMapIts)
+		return;
 	nMer[0] = pDoc->m_pReelMapIts->GetDefStrip(0);
 	nMer[1] = pDoc->m_pReelMapAllUp->GetDefStrip(1);
 	nMer[2] = pDoc->m_pReelMapAllUp->GetDefStrip(2);
